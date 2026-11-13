@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project conventions
+
+- Keep the desktop launcher's interface in its own feature module and its visual tokens and responsive rules in the shared stylesheet, so future widget changes stay cohesive.
