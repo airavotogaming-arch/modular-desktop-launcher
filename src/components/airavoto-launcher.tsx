@@ -66,7 +66,7 @@ const railItems = [
   { id: "rewards", label: "Rewards", icon: Gift, target: "rewards-panel" },
 ];
 
-type DialogContent = { title: string; description: string; action?: string };
+type DialogContent = { title: string; description: string; action?: string | undefined };
 
 function ClockDisplay() {
   const [now, setNow] = useState({ time: "9:37 PM", date: "12/11/2026" });
@@ -379,7 +379,7 @@ export function AiravotoLauncher() {
                     <span className="featured-label"><Sparkles aria-hidden="true" /> Featured game</span>
                     <h1>League of<br className="featured-break" /> Legends</h1>
                     <p>Play. Compete. Win.</p>
-                    <Button className="play-button" onClick={() => openGame(games[0])}>Play now <Play aria-hidden="true" fill="currentColor" /></Button>
+                  <Button className="play-button" onClick={() => { const game = games.find((item) => item.name === "VALORANT"); if (game) openGame(game); }}>Play now <Play aria-hidden="true" fill="currentColor" /></Button>
                   </div>
                   <Button variant="ghost" size="icon" className="featured-arrow featured-arrow-right" aria-label="Next featured game" onClick={() => openDialog("Featured games", "Discover more new worlds in your game library.", "Browse games")}><ChevronRight aria-hidden="true" /></Button>
                   <div className="carousel-dots" aria-label="Featured game 1 of 5"><span className="carousel-dot carousel-dot-active" /><span className="carousel-dot" /><span className="carousel-dot" /><span className="carousel-dot" /><span className="carousel-dot" /></div>
@@ -442,7 +442,7 @@ export function AiravotoLauncher() {
                       <Button variant="ghost" className="text-action" onClick={() => chooseTab("games", "all-games")}>See all <ArrowRight aria-hidden="true" /></Button>
                     </div>
                     <div className="popular-games">
-                      {[games[1], games[4], games[5], games[0]].map((game) => (
+                      {[games[1], games[4], games[5], games[0]].filter((game): game is (typeof games)[number] => Boolean(game)).map((game) => (
                         <Button variant="ghost" className="popular-game" key={game.name} onClick={() => openGame(game)}>
                           <span className={`popular-cover game-mark-${game.kind}`}>{game.short}</span>
                           <span>{game.name}</span>
